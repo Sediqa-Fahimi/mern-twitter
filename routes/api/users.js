@@ -5,9 +5,9 @@ const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
+
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
-
 
 
 router.get("/test", (req, res) => {
@@ -29,9 +29,9 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ handle: req.body.handle }).then(user => {
+  User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      errors.handle = "User already exists";
+      errors.email = "User already exists";
       return res.status(400).json(errors);
     } else {
       const newUser = new User({
@@ -70,12 +70,12 @@ router.post("/login", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const handle = req.body.handle;
+  const email = req.body.email;
   const password = req.body.password;
 
-  User.findOne({ handle }).then(user => {
+  User.findOne({ email }).then(user => {
     if (!user) {
-      errors.handle = "This user does not exist";
+      errors.email = "This user does not exist";
       return res.status(400).json(errors);
     }
 
