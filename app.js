@@ -13,17 +13,20 @@ mongoose
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 
+app.use(passport.initialize());
+require('./config/passport')(passport);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
 app.get("/", (req, res) => {
-  const user = new User({
-    handle: "jim",
-    email: "jim@jim.com",
-    password: "jimisgreat123"
-  })
-  user.save()
+  // const user = new User({
+  //   handle: "jim",
+  //   email: "jim@jim.com",
+  //   password: "jimisgreat123"
+  // })
+  // user.save()
   res.send("Hello Hi")
 });
   
