@@ -12,14 +12,16 @@ mongoose
   .catch(err => console.log(err));
 
 
-app.get("/", (req, res) => {
-  res.send("Hello Hi")
-});
+  app.get("/", (req, res) => {
+    res.send("Hello Hi")
+  });
+  
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 const port = process.env.PORT || 5000;
 
